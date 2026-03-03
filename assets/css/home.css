@@ -1,0 +1,155 @@
+/* --- Deep Cinematic Hero (mdproy3) --- */
+
+.hero-immersive {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+    cursor: pointer;
+    /* Indicates the whole video is clickable */
+}
+
+/* Background Video Layer */
+.video-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hero-bg-video {
+    width: 100vw;
+    height: 56.25vw;
+    /* 16:9 ratio matches original strictly */
+    min-height: 100vh;
+    min-width: 177.77vh;
+    /* 16:9 ratio matches original strictly */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Removed scaling per review */
+    object-fit: cover;
+    opacity: 0.8;
+    /* Slightly dim the raw video */
+}
+
+/* Heavy Vignette to create depth and focus */
+.vignette-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--vignette);
+    z-index: 2;
+    pointer-events: none;
+    /* Extra subtle blur on the very edges could be added here, but gradient is usually enough */
+}
+
+/* Central Typography */
+.typography-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+    pointer-events: none;
+    /* Let clicks pass through to zones */
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.eyebrow {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 2vw, 2rem);
+    font-style: italic;
+    color: var(--accent);
+    margin-bottom: -1rem;
+    /* Pull title up tight */
+    z-index: 2;
+}
+
+.glitch-text {
+    position: relative;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.7);
+    /* Outlined text by default */
+    background: linear-gradient(to bottom, #fff 0%, rgba(255, 255, 255, 0.2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* Optional slight blend mode */
+    mix-blend-mode: overlay;
+}
+
+/* Invisible Click Zones for Navigation */
+.click-zones {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 5;
+    pointer-events: none;
+    /* Let empty space pass clicks */
+}
+
+.zone {
+    width: 400px;
+    /* Fixed width matching original */
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: opacity 0.5s ease;
+    /* Ensure only opacity transitions, no background effect */
+    pointer-events: auto;
+    /* Re-enable clicks just for the zones */
+}
+
+.zone-left {
+    justify-content: flex-start;
+    padding-left: 2rem;
+}
+
+.zone-right {
+    justify-content: flex-end;
+    padding-right: 2rem;
+}
+
+.zone .zone-text {
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), color 0.3s ease;
+    font-family: var(--font-heading);
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.zone-left .zone-text {
+    transform: translateX(-20px);
+}
+
+.zone-right .zone-text {
+    transform: translateX(20px);
+}
+
+.zone:hover .zone-text {
+    opacity: 1;
+    transform: translateX(0);
+    color: #ffffff;
+}

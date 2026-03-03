@@ -1,0 +1,65 @@
+/* --- Info Page Styling --- */
+.info-page-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10rem 2rem 4rem 2rem;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.base-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.info-spotlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-image: url('../images/bg-info.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(15px) brightness(0.3);
+    /* Darkened the blur more to make text pop */
+    transform: scale(1.05);
+    /* mask creates the spotlight */
+    mask-image: radial-gradient(circle 450px at var(--cursor-x, -1000px) var(--cursor-y, -1000px), transparent 0%, black 100%);
+    -webkit-mask-image: radial-gradient(circle 450px at var(--cursor-x, -1000px) var(--cursor-y, -1000px), transparent 0%, black 100%);
+    transition: filter 0.4s ease;
+}
+
+.info-content-wrapper {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.layer-text {
+    z-index: 10;
+    filter: blur(10px);
+    opacity: 0.6;
+    transition: filter 1s ease, opacity 1s ease;
+}
+
+.layer-text.is-focused {
+    filter: blur(0px);
+    opacity: 1;
+}
+
+.info-title {
+    color: #fff;
+}

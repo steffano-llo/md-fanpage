@@ -5,36 +5,46 @@
     <link rel="icon" type="image/jpeg" href="assets/images/favicon.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madison Beer | Music</title>
+    <title>Madison Beer | MUSIC VIDEOS (Immersive)</title>
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Oswald, Cormorant Garamond, Great Vibes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Oswald:wght@200;300;400;500&family=Great+Vibes&display=swap"
+        rel="stylesheet">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/project.css">
+    <link rel="stylesheet" href="assets/css/music.css">
 
     <!-- GSAP for Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 
-<body>
+<body class="dark-body">
+    <!-- Immersive Page Transition -->
+    <div class="cinema-transition"></div>
 
-    <!-- Header Navigation -->
-    <header class="header">
-        <a href="index.html" class="logo">madison beer</a>
-        <nav class="nav-links">
-            <a href="gallery.html" class="nav-link">GALLERY</a>
-            <a href="music.html" class="nav-link">MUSIC</a>
-            <a href="info.html" class="nav-link">INFO</a>
-        </nav>
-    </header>
+    <!-- Corner-Anchored Navigation -->
+    <nav class="nav-corner logo-corner">
+        <a href="index.html" class="logo-text">madison beer</a>
+    </nav>
+    <nav class="nav-corner menu-corner">
+        <a href="music.html" class="menu-link active">MUSIC VIDEOS</a>
+        <a href="gallery.html" class="menu-link">GALLERY</a>
+        <a href="info.html" class="menu-link">INFO</a>
+    </nav>
 
-    <!-- Video Gallery Section -->
-    <section id="gallery" class="gallery-section gallery-page-view">
+    <!-- Structured Music Gallery Section (Matches original mdproy) -->
+    <main class="gallery-section gallery-page-view immersive-music">
+
+        <header class="section-header" style="text-align:center; margin-bottom: 3rem;">
+            <h1 class="h-xl glitch-text" style="font-family: var(--font-cursive); text-transform:none;">MUSIC VIDEOS
+            </h1>
+        </header>
+
         <div class="gallery-filters">
             <button class="filter-btn active" data-filter="all">ALL</button>
             <button class="filter-btn" data-filter="locket">LOCKET</button>
@@ -47,7 +57,7 @@
             <!-- Video Item 1 (Bad Enough) -->
             <div class="video-item" data-page="md-badenough.html" data-album="locket">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/images/thumb-badenough.jpg" alt="Bad Enough" class="thumbnail">
+                    <img src="assets/images/thumb-badenough.jpg" alt="Bad Enough" class="thumbnail" loading="lazy">
                     <video class="hover-video" src="assets/videos/preview/md-badenough-preview.mp4" muted loop
                         playsinline></video>
                     <div class="hover-overlay">
@@ -56,14 +66,14 @@
                 </div>
                 <div class="video-info">
                     <h3 class="video-title">Bad Enough</h3>
-                    <p class="video-director">Locket (Album)</p>
+                    <p class="video-director text-accent">Locket (Album)</p>
                 </div>
             </div>
 
-            <!-- Video Item 2 (Selfish with Preview) -->
+            <!-- Video Item 2 (Selfish) -->
             <div class="video-item" data-page="md-selfish.html" data-album="life-support">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/images/thumb-selfish.jpg" alt="Selfish" class="thumbnail">
+                    <img src="assets/images/thumb-selfish.jpg" alt="Selfish" class="thumbnail" loading="lazy">
                     <video class="hover-video" src="assets/videos/preview/md-selfish-preview.mp4" muted loop
                         playsinline></video>
                     <div class="hover-overlay">
@@ -72,14 +82,14 @@
                 </div>
                 <div class="video-info">
                     <h3 class="video-title">Selfish</h3>
-                    <p class="video-director">Life Support (Album)</p>
+                    <p class="video-director text-accent">Life Support (Album)</p>
                 </div>
             </div>
 
-            <!-- Video Item 3 -->
+            <!-- Video Item 3 (Make You Mine) -->
             <div class="video-item" data-page="md-makeyoumine.html" data-album="locket">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/images/thumb-makeyoumine.jpg" alt="Make You Mine" class="thumbnail">
+                    <img src="assets/images/thumb-makeyoumine.jpg" alt="Make You Mine" class="thumbnail" loading="lazy">
                     <video class="hover-video" src="assets/videos/preview/md-makeyoumine-preview.mp4" muted loop
                         playsinline></video>
                     <div class="hover-overlay">
@@ -88,14 +98,14 @@
                 </div>
                 <div class="video-info">
                     <h3 class="video-title">Make You Mine</h3>
-                    <p class="video-director">Locket (Album)</p>
+                    <p class="video-director text-accent">Locket (Album)</p>
                 </div>
             </div>
 
-            <!-- Video Item 4 -->
+            <!-- Video Item 4 (Spinnin) -->
             <div class="video-item" data-page="md-spinnin.html" data-album="silence-between-songs">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/images/thumb-spinnin.jpg" alt="Spinnin" class="thumbnail">
+                    <img src="assets/images/thumb-spinnin.jpg" alt="Spinnin" class="thumbnail" loading="lazy">
                     <video class="hover-video" src="assets/videos/preview/md-spinnin-preview.mp4" muted loop
                         playsinline></video>
                     <div class="hover-overlay">
@@ -104,14 +114,15 @@
                 </div>
                 <div class="video-info">
                     <h3 class="video-title">Spinnin</h3>
-                    <p class="video-director">Silence Between Songs (Album)</p>
+                    <p class="video-director text-accent">Silence Between Songs (Album)</p>
                 </div>
             </div>
 
-            <!-- Video Item 5 -->
+            <!-- Video Item 5 (Good in Goodbye) -->
             <div class="video-item" data-page="md-goodingoodbye.html" data-album="life-support">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/images/thumb-goodingoodbye.jpg" alt="Good In Goodbye" class="thumbnail">
+                    <img src="assets/images/thumb-goodingoodbye.jpg" alt="Good In Goodbye" class="thumbnail"
+                        loading="lazy">
                     <video class="hover-video" src="assets/videos/preview/md-goodingoodbye-preview.mp4" muted loop
                         playsinline></video>
                     <div class="hover-overlay">
@@ -120,14 +131,14 @@
                 </div>
                 <div class="video-info">
                     <h3 class="video-title">Good In Goodbye</h3>
-                    <p class="video-director">Life Support (Album)</p>
+                    <p class="video-director text-accent">Life Support (Album)</p>
                 </div>
             </div>
 
-            <!-- Video Item 6 -->
+            <!-- Video Item 6 (Reckless) -->
             <div class="video-item" data-page="md-reckless.html" data-album="silence-between-songs">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/images/thumb-reckless.jpg" alt="Reckless" class="thumbnail">
+                    <img src="assets/images/thumb-reckless.jpg" alt="Reckless" class="thumbnail" loading="lazy">
                     <video class="hover-video" src="assets/videos/preview/md-reckless-preview.mp4" muted loop
                         playsinline></video>
                     <div class="hover-overlay">
@@ -136,32 +147,37 @@
                 </div>
                 <div class="video-info">
                     <h3 class="video-title">Reckless</h3>
-                    <p class="video-director">Silence Between Songs (Album)</p>
+                    <p class="video-director text-accent">Silence Between Songs (Album)</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Footer Section -->
-    <footer id="info" class="footer">
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="https://www.instagram.com/madisonbeer/" target="_blank">INSTAGRAM</a>
-                <a href="https://twitter.com/madisonbeer" target="_blank">TWITTER</a>
-                <a href="https://open.spotify.com/intl-es/artist/2kRfqPViCqYdSGhYSM9R0Q" target="_blank">SPOTIFY</a>
-                <a href="https://www.youtube.com/channel/UC7zjjW_bvcVsPcBiqUPJf1w" target="_blank">YOUTUBE</a>
-            </div>
-            <p class="copyright" style="margin-bottom: 0.5rem;">© 2026 Madison Beer.</p>
-            <p class="copyright" style="font-size: 0.7rem; max-width: 600px; margin: 0 auto; line-height: 1.5;">This is
-                a conceptual fan-made portfolio project. This website is not affiliated with, endorsed by, or sponsored
-                by Madison Beer or her management. All rights to audio and visual content belong to their respective
-                owners.</p>
+        <hr
+            style="width: 60%; max-width: 800px; border: 0; border-top: 1px solid rgba(255, 255, 255, 0.15); margin: 4rem auto 0 auto;">
+        <div class="info-socials"
+            style="display: flex; justify-content: center; gap: 2rem; position: relative; z-index: 20; padding-top: 3rem; margin-bottom: 2rem;">
+            <a href="https://www.instagram.com/madisonbeer/" target="_blank"
+                class="zone-text caption-txt info-social-link"
+                style="text-decoration: none; color: #fff; opacity: 0.7; transition: opacity 0.3s; font-size: 0.9rem;">INSTAGRAM</a>
+            <a href="https://twitter.com/madisonbeer" target="_blank" class="zone-text caption-txt info-social-link"
+                style="text-decoration: none; color: #fff; opacity: 0.7; transition: opacity 0.3s; font-size: 0.9rem;">TWITTER</a>
+            <a href="https://open.spotify.com/intl-es/artist/2kRfqPViCqYdSGhYSM9R0Q" target="_blank"
+                class="zone-text caption-txt info-social-link"
+                style="text-decoration: none; color: #fff; opacity: 0.7; transition: opacity 0.3s; font-size: 0.9rem;">SPOTIFY</a>
+            <a href="https://www.youtube.com/channel/UC7zjjW_bvcVsPcBiqUPJf1w" target="_blank"
+                class="zone-text caption-txt info-social-link"
+                style="text-decoration: none; color: #fff; opacity: 0.7; transition: opacity 0.3s; font-size: 0.9rem;">YOUTUBE</a>
         </div>
-    </footer>
+        <p class="copyright"
+            style="margin: 3rem auto 0 auto; font-family: var(--font-sans); font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); line-height: 1.5; text-align: center; max-width: 600px; text-transform: uppercase; letter-spacing: 0.05em;">
+            Disclaimer: This is a conceptual fan-made portfolio project. This website is not affiliated with,
+            endorsed by, or sponsored by Madison Beer or her management. All rights to audio and visual content
+            belong to their respective owners.
+        </p>
+    </main>
 
     <!-- Custom Scripts -->
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/project.js"></script>
+    <script defer src="assets/js/music.js"></script>
 </body>
 
 </html>

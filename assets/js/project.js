@@ -1,180 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    /* --- GSAP Scroll Animations for Inner Page --- */
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Gallery Grid items animation (Individual appear on scroll)
-    const videoItems = gsap.utils.toArray('.video-item');
-    videoItems.forEach((item) => {
-        gsap.from(item, {
-            scrollTrigger: {
-                trigger: item,
-                start: 'top 90%',
-                toggleActions: 'play none none none' // Play once, never reverse to prevent layout jumping
-            },
-            y: 20, // Reduced from 100 to a subtle 20 to avoid extreme layout shifts
-            opacity: 0,
-            duration: 0.8,
-            ease: 'power3.out'
-        });
-
-        /* --- Hover Video Previews Logic --- */
-        const hoverVideo = item.querySelector('.hover-video');
-        if (hoverVideo) {
-            item.addEventListener('mouseenter', () => {
-                hoverVideo.play();
-            });
-            item.addEventListener('mouseleave', () => {
-                hoverVideo.pause();
-                hoverVideo.currentTime = 0; // Reset video to start
-            });
-        }
-    });
-
-    // Footer animation
-    gsap.from('.footer-content > *', {
-        scrollTrigger: {
-            trigger: '.footer',
-            start: 'top 90%',
-        },
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power2.out'
-    });
-
-    /* --- Click to play full video --- */
-    if (videoItems.length > 0) {
-        videoItems.forEach((item) => {
-            item.addEventListener('click', () => {
-                const targetPage = item.getAttribute('data-page');
-                if (targetPage) {
-                    window.location.href = targetPage;
-                }
-            });
-        });
-
-        /* --- Album Video Filtering --- */
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        if (filterBtns.length > 0) {
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Update active state
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-
-                    const filterValue = btn.getAttribute('data-filter');
-
-                    // 1. Fade out / Scale down all currently visible items
-                    const visibleItems = Array.from(videoItems).filter(item => !item.classList.contains('hidden-item'));
-
-                    // Kill any active tweens on these items (like ScrollTriggers that might be running)
-                    gsap.killTweensOf(videoItems);
-
-                    if (visibleItems.length > 0) {
-                        gsap.to(visibleItems, {
-                            opacity: 0,
-                            scale: 0.8,
-                            y: 0, // Force reset any residual Y offset
-                            duration: 0.3,
-                            ease: 'power2.in',
-                            onComplete: () => {
-                                // 2. Hide items that don't match, show items that do
-                                videoItems.forEach(item => {
-                                    if (filterValue === 'all' || item.getAttribute('data-album') === filterValue) {
-                                        item.classList.remove('hidden-item');
-                                    } else {
-                                        item.classList.add('hidden-item');
-                                    }
-                                });
-
-                                // 3. Fade in / Scale up the newly visible items
-                                const newVisibleItems = Array.from(videoItems).filter(item => !item.classList.contains('hidden-item'));
-                                if (newVisibleItems.length > 0) {
-                                    gsap.fromTo(newVisibleItems,
-                                        { opacity: 0, scale: 0.8, y: 0 },
-                                        {
-                                            opacity: 1,
-                                            scale: 1,
-                                            y: 0,
-                                            duration: 0.4,
-                                            stagger: 0.05,
-                                            ease: 'back.out(1.2)',
-                                            onComplete: () => ScrollTrigger.refresh() // Recalculate page height!
-                                        }
-                                    );
-                                } else {
-                                    ScrollTrigger.refresh();
-                                }
-                            }
-                        });
-                    } else {
-                        // Edge case if somehow 0 items were visible
-                        videoItems.forEach(item => {
-                            if (filterValue === 'all' || item.getAttribute('data-album') === filterValue) {
-                                item.classList.remove('hidden-item');
-                            } else {
-                                item.classList.add('hidden-item');
-                            }
-                        });
-                        const newVisibleItems = Array.from(videoItems).filter(item => !item.classList.contains('hidden-item'));
-                        gsap.fromTo(newVisibleItems,
-                            { opacity: 0, scale: 0.8, y: 0 },
-                            {
-                                opacity: 1,
-                                scale: 1,
-                                y: 0,
-                                duration: 0.4,
-                                stagger: 0.05,
-                                ease: 'back.out(1.2)',
-                                onComplete: () => ScrollTrigger.refresh() // Recalculate page height!
-                            }
-                        );
-                    }
-                });
-            });
-        }
-    }
-
-    /* --- Info Page Fade In Animation --- */
-    const infoSection = document.getElementById('info-content');
-    if (infoSection) {
-        // Master timeline for the info page load
-        const tl = gsap.timeline();
-
-        // 1. Fade in the whole section (background + overlay)
-        tl.to(infoSection, {
-            opacity: 1,
-            duration: 1.2,
-            ease: 'power2.inOut'
-        });
-
-        // Slide and fade in the text wrapper slightly after
-        tl.to('.info-content-wrapper', {
-            y: 0,
-            opacity: 1,
-            duration: 1.2,
-            ease: 'power3.out'
-        }, "-=0.6"); // overlap animation
-    }
-
-    /* --- Photo Gallery Fade-In Animation --- */
-    const photoItems = document.querySelectorAll('.photo-item');
-    if (photoItems.length > 0) {
-        gsap.to(photoItems, {
-            scrollTrigger: {
-                trigger: '.photo-gallery-section',
-                start: 'top 90%',
-                toggleActions: 'play none none none'
-            },
-            y: 0,
-            opacity: 1,
-            duration: 0.6,
-            ease: 'power3.out',
-            stagger: { amount: 1.2 } /* Fast, dynamic cascade: all 50 photos finish stagger within 1.2s */
-        });
-    }
-
     /* --- Streaming Icons Fade-In Animation --- */
     const streamIcons = document.querySelectorAll('.stream-icon');
     if (streamIcons.length > 0) {
@@ -189,6 +13,198 @@ document.addEventListener('DOMContentLoaded', () => {
             delay: 0.6, // wait slightly for the video iframe to load before popping in
             stagger: 0.15, // cascading pop-in effect
             ease: 'back.out(1.7)' // gives a slight, elegant bounce
+        });
+    }
+});
+
+/* --- Cinematic Video Title Animation --- */
+const videoTitle = document.getElementById('video-title-anim');
+if (videoTitle) {
+    gsap.to(videoTitle, {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        delay: 0.2,
+        ease: 'power3.out'
+    });
+}
+
+/* --- Custom YouTube Audio Control --- */
+let player;
+
+window.onYouTubeIframeAPIReady = function () {
+    const iframe = document.getElementById('youtube-player');
+    if (iframe) {
+        player = new YT.Player('youtube-player', {
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+
+        function onPlayerReady(event) {
+            // Initial setup when player is ready can go here
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === 1) {
+                if (window.progressInterval) clearInterval(window.progressInterval);
+                window.progressInterval = setInterval(updateProgressBar, 100);
+
+                const playIcon = document.getElementById('play-icon');
+                if (playIcon) {
+                    playIcon.classList.remove('fa-play');
+                    playIcon.classList.add('fa-pause');
+                }
+            } else {
+                if (window.progressInterval) clearInterval(window.progressInterval);
+                const playIcon = document.getElementById('play-icon');
+                if (playIcon && event.data === 2) {
+                    playIcon.classList.remove('fa-pause');
+                    playIcon.classList.add('fa-play');
+                }
+            }
+        }
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const audioBtn = document.getElementById('custom-audio-btn');
+    const audioIcon = document.getElementById('audio-icon');
+    const playBtn = document.getElementById('custom-play-btn');
+    const playIcon = document.getElementById('play-icon');
+
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            if (player && player.getPlayerState) {
+                const playerState = player.getPlayerState();
+                if (playerState === 1) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        });
+    }
+
+    if (audioBtn) {
+        audioBtn.addEventListener('click', () => {
+            if (player && player.isMuted) {
+                if (player.isMuted()) {
+                    player.unMute();
+                    audioIcon.classList.remove('fa-volume-mute');
+                    audioIcon.classList.add('fa-volume-up');
+                    audioBtn.style.opacity = '1';
+
+                    const volumeSlider = document.getElementById('volume-slider');
+                    if (volumeSlider) {
+                        if (volumeSlider.value == 0) {
+                            volumeSlider.value = 100;
+                            player.setVolume(100);
+                        } else {
+                            player.setVolume(volumeSlider.value);
+                        }
+                    }
+                } else {
+                    player.mute();
+                    audioIcon.classList.remove('fa-volume-up');
+                    audioIcon.classList.add('fa-volume-mute');
+                    audioBtn.style.opacity = '0.7';
+                }
+            }
+        });
+    }
+
+    const volumeSlider = document.getElementById('volume-slider');
+    if (volumeSlider) {
+        volumeSlider.addEventListener('input', (e) => {
+            if (player && player.setVolume) {
+                const volume = parseInt(e.target.value);
+                player.setVolume(volume);
+
+                if (volume === 0) {
+                    player.mute();
+                    audioIcon.classList.remove('fa-volume-up', 'fa-volume-down');
+                    audioIcon.classList.add('fa-volume-mute');
+                    audioBtn.style.opacity = '0.7';
+                } else {
+                    if (player.isMuted()) {
+                        player.unMute();
+                        audioBtn.style.opacity = '1';
+                    }
+                    audioIcon.classList.remove('fa-volume-mute', 'fa-volume-up', 'fa-volume-down');
+                    if (volume < 50) {
+                        audioIcon.classList.add('fa-volume-down');
+                    } else {
+                        audioIcon.classList.add('fa-volume-up');
+                    }
+                }
+            }
+        });
+    }
+
+    const fullscreenBtn = document.getElementById('custom-fullscreen-btn');
+    const fullscreenIcon = document.getElementById('fullscreen-icon');
+    const videoContainer = document.querySelector('.iframe-responsive-container');
+
+    if (fullscreenBtn && videoContainer) {
+        fullscreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                if (videoContainer.requestFullscreen) {
+                    videoContainer.requestFullscreen();
+                } else if (videoContainer.webkitRequestFullscreen) {
+                    videoContainer.webkitRequestFullscreen();
+                } else if (videoContainer.msRequestFullscreen) {
+                    videoContainer.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                fullscreenIcon.classList.remove('fa-compress');
+                fullscreenIcon.classList.add('fa-expand');
+            } else {
+                fullscreenIcon.classList.remove('fa-expand');
+                fullscreenIcon.classList.add('fa-compress');
+            }
+        });
+    }
+
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+
+    window.updateProgressBar = () => {
+        if (player && player.getDuration) {
+            const duration = player.getDuration();
+            const currentTime = player.getCurrentTime();
+            if (duration > 0) {
+                const percent = (currentTime / duration) * 100;
+                if (progressBar) progressBar.style.width = percent + '%';
+            }
+        }
+    };
+
+    if (progressContainer) {
+        progressContainer.addEventListener('click', (e) => {
+            if (player && player.getDuration) {
+                const duration = player.getDuration();
+                const rect = progressContainer.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const percent = clickX / rect.width;
+                const seekTime = duration * percent;
+
+                player.seekTo(seekTime, true);
+                if (progressBar) progressBar.style.width = (percent * 100) + '%';
+            }
         });
     }
 });

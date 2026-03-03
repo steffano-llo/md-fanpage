@@ -1,0 +1,196 @@
+/* --- Structured Music Gallery (mdproy3) matches mdproy logic --- */
+
+.dark-body {
+    background-color: #000;
+}
+
+.gallery-section {
+    padding: 2rem 1rem 8rem 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+.gallery-page-view {
+    padding-top: 15vh;
+    /* Account for floating header */
+}
+
+/* --- Filter Menu --- */
+.gallery-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.filter-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding-bottom: 5px;
+    border-bottom: 1px solid transparent;
+}
+
+.filter-btn:hover {
+    color: var(--text-primary);
+}
+
+.filter-btn.active {
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--text-primary);
+}
+
+.hidden-item {
+    display: none !important;
+}
+
+/* --- Gallery Grid --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 5vw;
+}
+
+.video-item {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 4px;
+    /* Optional subtle curve for premium feel */
+}
+
+.video-item:hover {
+    transform: translateY(-15px);
+}
+
+.thumbnail-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
+    filter: brightness(0.6) contrast(1.1);
+    /* Dark immersive feel */
+}
+
+.hover-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+.video-item:hover .thumbnail {
+    opacity: 0;
+    transform: scale(1.05);
+}
+
+.video-item:hover .hover-video {
+    opacity: 1;
+}
+
+/* Play overlay logic from original project */
+.hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.8) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 3;
+}
+
+.play-icon {
+    font-size: 3rem;
+    color: white;
+    transform: scale(0.8);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.video-item:hover .hover-overlay {
+    opacity: 1;
+}
+
+.video-item:hover .play-icon {
+    transform: scale(1);
+}
+
+.video-item:hover .video-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Info text container */
+.video-info {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.video-title {
+    font-family: var(--font-cursive);
+    /* Great Vibes */
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: 0rem;
+    letter-spacing: 0;
+    color: var(--text-primary);
+}
+
+.video-director {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+@media (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        /* Single column on strictly narrow screens */
+        padding: 0 2vw;
+    }
+
+    .video-info {
+        opacity: 1;
+        /* Always show info on mobile */
+        transform: translateY(0);
+    }
+
+    .video-item .thumbnail {
+        opacity: 0.5;
+    }
+}

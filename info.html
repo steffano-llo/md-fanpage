@@ -7,66 +7,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madison Beer | Info</title>
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Oswald & Cormorant Garamond -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Oswald:wght@200;300;400;500&family=Great+Vibes&display=swap"
+        rel="stylesheet">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/home.css">
     <link rel="stylesheet" href="assets/css/project.css">
+    <link rel="stylesheet" href="assets/css/info.css">
+
+    <!-- Preloads -->
+    <link rel="preload" as="image" href="assets/images/bg-info.jpg">
 
     <!-- GSAP for Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 
-<body>
+<body style="user-select: none; -webkit-user-select: none; -ms-user-select: none;">
+    <!-- Immersive Page Transition -->
+    <div class="cinema-transition"></div>
 
-    <!-- Header Navigation -->
-    <header class="header">
-        <a href="index.html" class="logo">madison beer</a>
-        <nav class="nav-links">
-            <a href="gallery.html" class="nav-link">GALLERY</a>
-            <a href="music.html" class="nav-link">MUSIC</a>
-            <a href="#" class="nav-link">INFO</a>
-        </nav>
-    </header>
+    <!-- Corner-Anchored Navigation -->
+    <nav class="nav-corner logo-corner">
+        <a href="index.html" class="logo-text">madison beer</a>
+    </nav>
+    <nav class="nav-corner menu-corner">
+        <a href="music.html" class="menu-link">MUSIC VIDEOS</a>
+        <a href="gallery.html" class="menu-link">GALLERY</a>
+        <a href="info.html" class="menu-link active">INFO</a>
+    </nav>
 
-    <!-- Info Section (Shares 'hero' class to reuse spotlight JS logic) -->
-    <section id="info-content" class="info-page-section hero" style="opacity: 0;">
+    <!-- Info Section -->
+    <main class="info-page-section" id="info-content" style="opacity: 0;">
         <img src="assets/images/bg-info.jpg" alt="Madison Beer Background" class="base-bg">
 
         <!-- Blurred Overlay with Dynamic Transparent Mask (Spotlight) -->
         <div class="overlay-blur info-spotlight"></div>
 
-        <div class="info-content-wrapper layer-text">
-            <h1 class="info-title">MADISON BEER</h1>
-            <p class="info-description">
+        <div class="info-content-wrapper layer-text" style="opacity: 0; transform: translateY(30px);">
+            <div class="title-container"
+                style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-bottom: 2rem;">
+                <h1 class="h-xl glitch-text info-title">MADISON BEER</h1>
+            </div>
+
+            <p class="info-description"
+                style="font-family: var(--font-serif); font-size: 1.5rem; text-transform: none; color: rgba(255,255,255,0.9); text-shadow: 0 4px 15px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.6); font-weight: 400; max-width: 800px; line-height: 1.5; margin: 0 auto 3rem auto; text-align: center;">
                 Madison Elle Beer is an American singer, songwriter, and producer.
                 Born in New York, she gained early recognition for her vocal talent and has since evolved into a
                 versatile artist known for her cinematic pop sound and introspective songwriting.
             </p>
-            <div class="info-socials">
-                <a href="https://www.instagram.com/madisonbeer/" target="_blank" class="info-social-link">INSTAGRAM</a>
-                <a href="https://twitter.com/madisonbeer" target="_blank" class="info-social-link">TWITTER</a>
+            <div class="info-socials"
+                style="display: flex; justify-content: center; gap: 2rem; position: relative; z-index: 20;">
+                <a href="https://www.instagram.com/madisonbeer/" target="_blank"
+                    class="zone-text caption-txt info-social-link"
+                    style="text-decoration: none; color: #fff; opacity: 0.7; transition: opacity 0.3s; font-size: 0.9rem;">INSTAGRAM</a>
+                <a href="https://twitter.com/madisonbeer" target="_blank" class="zone-text caption-txt info-social-link"
+                    style="text-decoration: none; color: #fff; opacity: 0.7; transition: opacity 0.3s; font-size: 0.9rem;">TWITTER</a>
                 <a href="https://open.spotify.com/intl-es/artist/2kRfqPViCqYdSGhYSM9R0Q" target="_blank"
-                    class="info-social-link">SPOTIFY</a>
+                    class="zone-text caption-txt info-social-link"
+                    style="text-decoration: none; color: #fff; opacity: 0.7; transition: opacity 0.3s; font-size: 0.9rem;">SPOTIFY</a>
                 <a href="https://www.youtube.com/channel/UC7zjjW_bvcVsPcBiqUPJf1w" target="_blank"
-                    class="info-social-link">YOUTUBE</a>
+                    class="zone-text caption-txt info-social-link"
+                    style="text-decoration: none; color: #fff; opacity: 0.7; transition: opacity 0.3s; font-size: 0.9rem;">YOUTUBE</a>
             </div>
             <p class="copyright"
-                style="margin: 3rem auto 0 auto; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); line-height: 1.5; text-align: center; max-width: 600px;">
+                style="margin: 3rem auto 0 auto; font-family: var(--font-sans); font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); line-height: 1.5; text-align: center; max-width: 600px; text-transform: uppercase; letter-spacing: 0.05em;">
                 Disclaimer: This is a conceptual fan-made portfolio project. This website is not affiliated with,
                 endorsed by, or sponsored by Madison Beer or her management. All rights to audio and visual content
                 belong to their respective owners.
             </p>
         </div>
-    </section>
+    </main>
 
     <!-- Custom Scripts -->
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/project.js"></script>
+    <script defer src="assets/js/info.js"></script>
 </body>
 
 </html>
